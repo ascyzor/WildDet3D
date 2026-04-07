@@ -27,8 +27,8 @@
 </a>
 
 <p style="width:80%; margin:auto">
-    <a href="https://weikaih04.github.io/" target="_blank">Weikai Huang</a><sup style="color:#F26035">&#9829;</sup><sup>1,2</sup>&nbsp;&nbsp;
-    <a href="https://jieyuz2.github.io/" target="_blank">Jieyu Zhang</a><sup style="color:#F26035">&#9829;</sup><sup>1,2</sup>
+    <a href="https://weikaih04.github.io/" target="_blank">Weikai Huang</a><sup style="color:#FF69B4">&#9829;</sup><sup>1,2</sup>&nbsp;&nbsp;
+    <a href="https://jieyuz2.github.io/" target="_blank">Jieyu Zhang</a><sup style="color:#FF69B4">&#9829;</sup><sup>1,2</sup>
     <br>
     <a href="https://github.com/Silicon23" target="_blank">Sijun Li</a><sup>2</sup>&nbsp;&nbsp;
     <a href="https://github.com/taoyangJ" target="_blank">Taoyang Jia</a><sup>2</sup>&nbsp;&nbsp;
@@ -45,12 +45,12 @@
     <br>
     <a href="https://homes.cs.washington.edu/~ali/" target="_blank">Ali Farhadi</a><sup>1,2</sup>&nbsp;&nbsp;
     <a href="https://www.cs.cornell.edu/~bharathh/" target="_blank">Bharath Hariharan</a><sup>3</sup>&nbsp;&nbsp;
-    <a href="https://jason718.github.io/" target="_blank">Zhongzheng Ren</a><sup style="color:#F26035">&#9829;</sup><sup>1,2,4</sup>&nbsp;&nbsp;
-    <a href="https://ranjaykrishna.com/" target="_blank">Ranjay Krishna</a><sup style="color:#F26035">&#9829;</sup><sup>1,2</sup>
+    <a href="https://jason718.github.io/" target="_blank">Zhongzheng Ren</a><sup style="color:#FF69B4">&#9829;</sup><sup>1,2,4</sup>&nbsp;&nbsp;
+    <a href="https://ranjaykrishna.com/" target="_blank">Ranjay Krishna</a><sup style="color:#FF69B4">&#9829;</sup><sup>1,2</sup>
 </p>
 
 <p>
-<span style="color:#F26035">&#9829;</span> core contributors &nbsp;&nbsp;
+<span style="color:#FF69B4">&#9829;</span> core contributors &nbsp;&nbsp;
 <sup>1</sup>Allen Institute for AI&nbsp;&nbsp;&nbsp;&nbsp;<sup>2</sup>University of Washington&nbsp;&nbsp;&nbsp;&nbsp;<sup>3</sup>Cornell University&nbsp;&nbsp;&nbsp;&nbsp;<sup>4</sup>UNC-Chapel Hill
 </p>
 
