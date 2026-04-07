@@ -76,7 +76,7 @@
 <td align="center">
 <b>iPhone App</b>
 <br>Real-time on-device 3D detection
-<br><a href="https://apps.apple.com/us/app/wilddet3d/id6760861157">App Store</a> | <a href="demo/iphone/README.md">README</a>
+<br><a href="https://apps.apple.com/us/app/wilddet3d/id6760861157">App Store</a> | <a href="https://youtu.be/LJPNJ8jpOao">Video</a> | <a href="demo/iphone/README.md">README</a>
 </td>
 </tr>
 <tr><td colspan="2"></td></tr>
