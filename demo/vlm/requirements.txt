@@ -1,0 +1,17 @@
+# =============================================================================
+# VLM Server Requirements
+# =============================================================================
+#
+# These packages are needed for the VLM server that provides the vision-language
+# model backend (Qwen3-VL or Molmo2). Install these in a separate conda
+# environment from molmo3det, as vLLM has its own PyTorch/CUDA requirements.
+#
+#   conda create -n vllm python=3.11
+#   conda activate vllm
+#   pip install -r requirements.txt
+#
+# =============================================================================
+
+vllm>=0.15.0                  # LLM serving engine (Qwen3-VL + Molmo2 native support)
+transformers>=4.45.0          # HuggingFace model loading
+qwen-vl-utils                 # Qwen3-VL vision processing utilities

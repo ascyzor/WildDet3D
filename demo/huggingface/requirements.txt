@@ -1,0 +1,36 @@
+# Core (torch/torchvision provided by HF base image)
+numpy>=1.21.0,<2.0.0
+opencv-python-headless
+pillow
+scipy
+einops
+timm>=0.6.0
+transformers
+huggingface_hub
+
+# vis4d runtime dependencies
+lightning
+jsonargparse[signatures]
+ml_collections==1.1.0
+pydantic>=2.0
+cloudpickle
+devtools
+termcolor
+terminaltables
+h5py
+tqdm
+
+# SAM3 dependencies
+ftfy
+regex
+iopath
+open_clip_torch
+pycocotools
+
+# LingBot-Depth
+safetensors
+
+# 3D visualization
+pygltflib
+trimesh
+utils3d

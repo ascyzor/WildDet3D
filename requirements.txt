@@ -1,0 +1,26 @@
+# Core
+torch==2.5.1
+torchvision==0.20.1
+numpy
+Pillow
+
+# Model dependencies
+einops
+timm
+transformers
+utils3d
+huggingface_hub
+
+# Depth backend
+opencv-python
+
+# Eval
+pycocotools
+pyquaternion
+scipy
+terminaltables
+ml_collections
+tqdm
+
+# vis4d framework (for training and eval)
+vis4d

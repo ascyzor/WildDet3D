@@ -1,0 +1,7 @@
+[submodule "third_party/sam3"]
+	path = third_party/sam3
+	url = https://github.com/weikaih04/sam3_for_wilddet3d.git
+	branch = main
+[submodule "third_party/lingbot_depth"]
+	path = third_party/lingbot_depth
+	url = https://github.com/Robbyant/lingbot-depth.git
