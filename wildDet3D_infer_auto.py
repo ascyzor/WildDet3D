@@ -347,8 +347,8 @@ def main() -> None:
     np.save(out_dir / f"{stem}_depth_map.npy", output.depth_maps[0].cpu().numpy())
     np.save(out_dir / f"{stem}_class_ids.npy", class_ids.cpu().numpy())
 
-    # unique_labels.txt: comma-separated clean label names (indexed by class_ids)
-    unique_labels_path = out_dir / "unique_labels.txt"
+    # Per-frame unique_labels file (stem-scoped to avoid clobber in multi-frame runs)
+    unique_labels_path = out_dir / f"{stem}_unique_labels.txt"
     unique_labels_path.write_text(",".join(clean_unique_names))
 
     output_png = out_dir / f"{stem}_output.png"
@@ -367,7 +367,7 @@ def main() -> None:
     print(f"  {out_dir}/{stem}_boxes3d.npy")
     print(f"  {out_dir}/{stem}_depth_map.npy")
     print(f"  {out_dir}/{stem}_class_ids.npy")
-    print(f"  {unique_labels_path}")
+    print(f"  {out_dir}/{stem}_unique_labels.txt")
     print(f"  {output_png}")
 
 

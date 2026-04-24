@@ -161,6 +161,73 @@ def read_image_tracks(
     raise KeyError(f"Image '{image_name}' not found in {images_bin}")
 
 
+def read_all_extrinsics(
+    images_bin: Path,
+) -> dict[str, tuple[np.ndarray, np.ndarray]]:
+    """Read (R, t) world-to-camera extrinsics for ALL images in one pass.
+
+    Returns {image_name: (R, t)}  where  P_cam = R @ P_world + t.
+    """
+    from scipy.spatial.transform import Rotation
+    result: dict[str, tuple[np.ndarray, np.ndarray]] = {}
+    with open(images_bin, "rb") as f:
+        (n,) = struct.unpack("<Q", f.read(8))
+        for _ in range(n):
+            f.read(4)                                   # image_id
+            qw, qx, qy, qz = struct.unpack("<4d", f.read(32))
+            tx, ty, tz      = struct.unpack("<3d", f.read(24))
+            f.read(4)                                   # cam_id
+            name = b""
+            while True:
+                c = f.read(1)
+                if c == b"\x00":
+                    break
+                name += c
+            (num_pts,) = struct.unpack("<Q", f.read(8))
+            f.read(num_pts * 24)
+            R = Rotation.from_quat([qx, qy, qz, qw]).as_matrix()
+            t = np.array([tx, ty, tz])
+            result[name.decode()] = (R, t)
+    return result
+
+
+def read_all_image_tracks(
+    images_bin: Path,
+) -> dict[str, tuple[np.ndarray, np.ndarray]]:
+    """Read 2D feature tracks for ALL images in images.bin in one pass.
+
+    Returns {image_name: (xy2d, point3d_ids)} where
+        xy2d:         (N, 2) float64 — pixel coords in original image
+        point3d_ids:  (N,)   int64
+    """
+    result: dict[str, tuple[np.ndarray, np.ndarray]] = {}
+    with open(images_bin, "rb") as f:
+        (n,) = struct.unpack("<Q", f.read(8))
+        for _ in range(n):
+            f.read(4)   # image_id
+            f.read(32)  # qvec
+            f.read(24)  # tvec
+            f.read(4)   # cam_id
+            name = b""
+            while True:
+                c = f.read(1)
+                if c == b"\x00":
+                    break
+                name += c
+            (num_pts,) = struct.unpack("<Q", f.read(8))
+            xy_list, pid_list = [], []
+            for _ in range(num_pts):
+                x2d, y2d = struct.unpack("<2d", f.read(16))
+                (pid,)   = struct.unpack("<q", f.read(8))
+                xy_list.append((x2d, y2d))
+                pid_list.append(pid)
+            result[name.decode()] = (
+                np.array(xy_list,  dtype=np.float64),
+                np.array(pid_list, dtype=np.int64),
+            )
+    return result
+
+
 def read_image_extrinsics(
     images_bin: Path, image_name: str
 ) -> tuple[np.ndarray, np.ndarray]:
@@ -345,6 +412,34 @@ def sample_box_edges(boxes3d: np.ndarray, R: np.ndarray, t: np.ndarray,
         for i, j in _BOX_EDGES:
             alphas = np.linspace(0, 1, pts_per_edge)[:, None]
             all_pts.append(corners[i] * (1 - alphas) + corners[j] * alphas)
+    return np.concatenate(all_pts, axis=0)
+
+
+def sample_box_edges_world(
+    boxes3d_world: np.ndarray,
+    pts_per_edge: int = 200,
+) -> np.ndarray:
+    """Sample dense points along box edges for world-space boxes.
+
+    boxes3d_world: (K, 10) already in COLMAP world units.
+        Format: [cx, cy, cz, W, L, H, qw, qx, qy, qz]
+    Returns (M, 3) world-space xyz.  No R/t/scale conversion needed.
+    """
+    from scipy.spatial.transform import Rotation
+    all_pts = []
+    for row in boxes3d_world.astype(np.float64):
+        W, L, H = float(row[3]), float(row[4]), float(row[5])
+        qw, qx, qy, qz = float(row[6]), float(row[7]), float(row[8]), float(row[9])
+        R_box   = Rotation.from_quat([qx, qy, qz, qw]).as_matrix()
+        center  = row[:3].copy()
+        corners = np.ascontiguousarray(
+            _box_corners(center, R_box, W, L, H), dtype=np.float64
+        )
+        for i, j in _BOX_EDGES:
+            alphas = np.linspace(0, 1, pts_per_edge)[:, None]
+            all_pts.append(corners[i] * (1 - alphas) + corners[j] * alphas)
+    if not all_pts:
+        return np.zeros((0, 3), dtype=np.float64)
     return np.concatenate(all_pts, axis=0)
 
 
